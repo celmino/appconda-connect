@@ -1,7 +1,14 @@
 import babel from "@babel/core";
 import jsxToJsonPlugin from "../babel-plugin-jsx-to-json.js";
 import fs from "node:fs";
-import jsxToSchemaPlugin from "babel-plugin-jsx-to-schema"
+import jsxToSchemaPlugin from "babel-plugin-jsx-to-schema";
+import path from "node:path";
+import handlebars from "handlebars";
+
+const loadTemplate = (filePath) => {
+  return fs.readFileSync(filePath, "utf-8");
+};
+
 export default function routes(app, addon) {
   // Redirect root path to /atlassian-connect.json,
   // which will be served by atlassian-connect-express.
@@ -60,11 +67,24 @@ export default function routes(app, addon) {
 
   app.get("/transform", (req, res) => {
     try {
+      const indexTemplate = loadTemplate("./example.jsx");
+      const index = handlebars.compile(indexTemplate);
+      const content = index({
+        title: "Atlassian Connect",
+        people: [
+          { name: "Yehuda Katz" },
+          { name: "Alan Johnson" },
+          { name: "Charles Jolley" },
+        ],
+        //, issueId: req.query['issueId']
+        //, browserOnly: true // you can set this to disable server-side rendering for react views
+      });
+
       // JSX dosyasını okuyun
       const jsxInput = fs.readFileSync("./example.jsx", "utf-8");
-
+      
       // JSX'i JSON'a dönüştürmek için Babel transform işlemi
-      const result = babel.transformSync(jsxInput, {
+      const result = babel.transformSync(content, {
         plugins: [jsxToSchemaPlugin],
         presets: ["@babel/preset-react"],
         filename: "example.jsx", // Dosya adını belirterek hata ayıklamayı kolaylaştırır
