@@ -8,9 +8,35 @@ export default function routes(app, addon) {
   app.get('/appstore', (req, res) => {
     res.json([
       {
-        name: "App1",
-        url: '/App1.json'
+        name: "Portal",
+        url: '/tasks.json'
 
+      },
+      {
+        name: "Companies",
+        url: '/tasks.json'
+
+      },
+      {
+        name: "Tasks",
+        url: '/tasks.json'
+
+      },
+      {
+        name: "Process",
+        url: '/process.json'
+      },
+      {
+        name: "Content Management",
+        url: '/process.json'
+      },
+      {
+        name: "Documents",
+        url: '/process.json'
+      },
+      {
+        name: "Customers",
+        url: '/process.json'
       }
     ]);
 });
