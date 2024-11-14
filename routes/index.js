@@ -21,18 +21,22 @@ export default function routes(app, addon) {
     res.json([
       {
         name: "Portal",
+        key: "portal",
         url: "/tasks.json",
       },
       {
         name: "Companies",
+        key: "companies",
         url: "/tasks.json",
       },
       {
         name: "Tasks",
+        key: "tasks",
         url: "/tasks.json",
       },
       {
         name: "Process",
+        key: "process",
         url: "/process.json",
       },
       {
