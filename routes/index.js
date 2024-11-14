@@ -65,9 +65,9 @@ export default function routes(app, addon) {
     );
   });
 
-  app.get("/transform", (req, res) => {
+  app.get("/transform/:view", (req, res) => {
     try {
-      const indexTemplate = loadTemplate("./example.jsx");
+      const indexTemplate = loadTemplate(`./views/${req.params.view}.jsx`);
       const index = handlebars.compile(indexTemplate);
       const content = index({
         title: "Atlassian Connect",
@@ -80,8 +80,6 @@ export default function routes(app, addon) {
         //, browserOnly: true // you can set this to disable server-side rendering for react views
       });
 
-      // JSX dosyasını okuyun
-      const jsxInput = fs.readFileSync("./example.jsx", "utf-8");
       
       // JSX'i JSON'a dönüştürmek için Babel transform işlemi
       const result = babel.transformSync(content, {
