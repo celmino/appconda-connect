@@ -21,20 +21,24 @@ export default function routes(app, addon) {
     res.json([
       {
         name: "Portal",
+        id: '1',
         key: "portal",
         url: "/tasks.json",
       },
       {
+        id: '2',
         name: "Companies",
         key: "companies",
         url: "/tasks.json",
       },
       {
+        id: '3',
         name: "Tasks",
         key: "tasks",
         url: "/tasks.json",
       },
       {
+        id: '4',
         name: "Process",
         key: "process",
         url: "/process.json",
@@ -84,7 +88,7 @@ export default function routes(app, addon) {
         //, browserOnly: true // you can set this to disable server-side rendering for react views
       });
 
-      
+
       // JSX'i JSON'a dönüştürmek için Babel transform işlemi
       const result = babel.transformSync(content, {
         plugins: [jsxToSchemaPlugin],
