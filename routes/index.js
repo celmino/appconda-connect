@@ -17,6 +17,11 @@ export default function routes(app, addon) {
     res.redirect("/App1.json");
   });
 
+  app.get("/module/:moduleName", (req, res) => {
+    //const file = fs.readFileSync(path.resolve('./public/remote/index.js'), "utf-8");
+    res.sendFile(path.resolve(`./modules/${req.params.moduleName}.js`))
+  });
+
   app.get("/appstore", (req, res) => {
     res.json([
       {
@@ -34,13 +39,25 @@ export default function routes(app, addon) {
       {
         id: '3',
         name: "Tasks",
-        key: "tasks",
+        key: "com.appconda.module.test",
         url: "/tasks.json",
       },
       {
         id: '4',
         name: "Process",
-        key: "process",
+        key: "com.appconda.module.process",
+        url: "/process.json",
+      },
+      {
+        id: '5',
+        name: "Companies",
+        key: "conpanies",
+        url: "/process.json",
+      },
+      {
+        id: '6',
+        name: "Yetkinlik",
+        key: "yetkinlik",
         url: "/process.json",
       },
       {
