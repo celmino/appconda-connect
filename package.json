@@ -20,6 +20,7 @@
     "lint": "eslint app.js routes"
   },
   "dependencies": {
+    "@appconda/node": "^1.0.4",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/section-message": "^6.3.9",
     "@babel/preset-react": "^7.25.9",

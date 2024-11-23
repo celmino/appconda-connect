@@ -1,0 +1,15 @@
+
+{
+    "appMenu" : [
+        {
+            "id":"1",
+            "name": "Home",
+            "url": "/home"
+        },
+        {
+            "id":"2",
+            "name": "Görevler",
+            "url": "/about"
+        }
+    ]
+}

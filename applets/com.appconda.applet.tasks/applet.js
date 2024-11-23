@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["React", "ReactRouterDOM"], factory);
 	else if(typeof exports === 'object')
-		exports["com.appconda.module.test"] = factory(require("React"), require("ReactRouterDOM"));
+		exports["com.appconda.applet.tasks"] = factory(require("React"), require("ReactRouterDOM"));
 	else
-		root["com.appconda.module.test"] = factory(root["React"], root["ReactRouterDOM"]);
+		root["com.appconda.applet.tasks"] = factory(root["React"], root["ReactRouterDOM"]);
 })(this, (__WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_router_dom__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";

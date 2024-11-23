@@ -1,0 +1,6 @@
+{
+    "id": "com.appconda.applet.tasks",
+    "name": "Tasks Applet",
+    "description": "Tasks Applet, bireysel veya ekip düzeyinde görev yönetimini kolaylaştırmak için geliştirilmiş bir modüldür. Kullanıcıların görev oluşturmasını, atamasını, takip etmesini ve tamamlamasını sağlayarak süreç yönetimini optimize eder. Esnek yapısı sayesinde farklı kullanım senaryolarına uyum sağlar.",
+    "tags": "crm, task"
+}

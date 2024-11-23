@@ -31,6 +31,8 @@ import { dirname } from 'path';
 
 // Routes live here; this is the C in MVC
 import routes from './routes/index.js';
+import tasksRoutes from './routes/com.appconda.applet.tasks.js';
+
 import { addServerSideRendering } from './server-side-rendering.js';
 
 // Bootstrap Express and atlassian-connect-express
@@ -98,6 +100,7 @@ if (devEnv) app.use(errorHandler());
 
 // Wire up routes
 routes(app, addon);
+tasksRoutes(app, addon);
 
 // Boot the HTTP server
 http.createServer(app).listen(port, () => {

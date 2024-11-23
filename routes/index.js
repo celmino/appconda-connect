@@ -4,6 +4,7 @@ import fs from "node:fs";
 import jsxToSchemaPlugin from "babel-plugin-jsx-to-schema";
 import path from "node:path";
 import handlebars from "handlebars";
+import { Client, Applets } from '@appconda/node'
 
 const loadTemplate = (filePath) => {
   return fs.readFileSync(filePath, "utf-8");
@@ -17,62 +18,54 @@ export default function routes(app, addon) {
     res.redirect("/App1.json");
   });
 
-  app.get("/module/:moduleName", (req, res) => {
+  app.get("/applet/:appletName", (req, res) => {
     //const file = fs.readFileSync(path.resolve('./public/remote/index.js'), "utf-8");
-    res.sendFile(path.resolve(`./modules/${req.params.moduleName}.js`))
+    res.sendFile(path.resolve(`./applets/${req.params.appletName}/applet.js`))
+  });
+
+  app.get("/applet/:appletName/menu", (req, res) => {
+    //const file = fs.readFileSync(path.resolve('./public/remote/index.js'), "utf-8");
+    const menu = fs.readFileSync(path.resolve(`./applets/${req.params.appletName}/menu.json`), "utf-8");
+    res.json(JSON.parse(menu));
   });
 
   app.get("/appstore", (req, res) => {
-    res.json([
-      {
-        name: "Portal",
-        id: '1',
-        key: "portal",
-        url: "/tasks.json",
-      },
-      {
-        id: '2',
-        name: "Companies",
-        key: "companies",
-        url: "/tasks.json",
-      },
-      {
-        id: '3',
-        name: "Tasks",
-        key: "com.appconda.module.test",
-        url: "/tasks.json",
-      },
-      {
-        id: '4',
-        name: "Process",
-        key: "com.appconda.module.process",
-        url: "/process.json",
-      },
-      {
-        id: '5',
-        name: "Companies",
-        key: "conpanies",
-        url: "/process.json",
-      },
-      {
-        id: '6',
-        name: "Yetkinlik",
-        key: "yetkinlik",
-        url: "/process.json",
-      },
-      {
-        name: "Content Management",
-        url: "/process.json",
-      },
-      {
-        name: "Documents",
-        url: "/process.json",
-      },
-      {
-        name: "Customers",
-        url: "/process.json",
-      },
-    ]);
+
+    const client = new Client();
+    client.setEndpoint('http://localhost/v1');
+    client.setFallbackCookies(req.headers['x-fallback-cookies']);
+
+
+    //const applets = new Applets(client);
+    //applets.getAppletScript('com.com.com');
+
+    const appletFolders = fs.readdirSync(path.resolve('./applets'));
+    const applets= [];
+    appletFolders.forEach(function (file, index) {
+
+        if (true) {
+            // Make one pass and make the file complete
+            var fromPath = path.join(path.resolve('./applets'), file);
+
+            const stat = fs.statSync(fromPath);
+
+            if (stat.isDirectory()) {
+             const manifestPath =path.resolve(fromPath + '/manifest.json');
+             const manifestString = fs.readFileSync(manifestPath, "utf-8");
+             const manifestObject = JSON.parse(manifestString);
+             // applets.push(require(path.resolve(fromPath + '/manifest.json')));
+                //const service = require(path.resolve(fromPath));
+                //container.registerService(null, service);
+
+                applets.push(manifestObject);
+
+            }
+
+          
+        }
+    });
+
+    res.json(applets);
   });
 
   // This is an example route used by "generalPages" module (see atlassian-connect.json).
