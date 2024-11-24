@@ -38,10 +38,10 @@ import { addServerSideRendering } from './server-side-rendering.js';
 // Bootstrap Express and atlassian-connect-express
 const app = express();
 app.use(cors());
-const addon = ace(app);
+//const addon = ace(app);
 
 // See config.json
-const port = addon.config.port();
+const port = 3005; // addon.config.port();
 app.set('port', port);
 
 // Log requests, using an appropriate formatter by env
@@ -85,7 +85,7 @@ app.use(cookieParser());
 app.use(compression());
 
 // Include atlassian-connect-express middleware
-app.use(addon.middleware());
+//app.use(addon.middleware());
 
 // Mount the static files directory
 const staticDir = path.join(__dirname, 'public');
@@ -99,15 +99,15 @@ app.use(nocache());
 if (devEnv) app.use(errorHandler());
 
 // Wire up routes
-routes(app, addon);
-tasksRoutes(app, addon);
+routes(app);
+tasksRoutes(app);
 
 // Boot the HTTP server
 http.createServer(app).listen(port, () => {
   console.log('App server running at http://' + os.hostname() + ':' + port);
 
   // Enables auto registration/de-registration of app into a host in dev mode
-  if (devEnv) addon.register();
+  //if (devEnv) addon.register();
 });
 
 function redactJwtTokens(req) {
