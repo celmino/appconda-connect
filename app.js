@@ -37,7 +37,13 @@ import { addServerSideRendering } from './server-side-rendering.js';
 
 // Bootstrap Express and atlassian-connect-express
 const app = express();
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  preflightContinue: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  origin: true,
+  allowedHeaders: ['Content-Type', 'x-fallback-cookies', 'x-appconda-project']
+}));
 //const addon = ace(app);
 
 // See config.json
